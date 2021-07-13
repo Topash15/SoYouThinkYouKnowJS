@@ -1,0 +1,99 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: fantasy;
+    background: linear-gradient(173deg, rgba(99,99,99,1) 0%, rgba(0,0,0,1) 100%);
+    color: var(--text);
+}
+
+:root{
+    --primary: #77c9d4;
+    --secondary: #57bc90;
+    --teritiary: #015249;
+    --text: #a5a5af;
+}
+
+header{
+    display:flex;
+    /*background-color: var(--primary);*/
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(119,201,212,1) 35%, rgba(87,188,144,1) 100%);
+    justify-content: center;
+    padding: 1% 5%;
+}
+
+header h1{
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(119,201,212,1) 35%, rgba(87,188,144,1) 100%);
+    color: var(--teritiary);
+    text-shadow: 1px 1px black;
+    justify-self: center;
+    font-size: 65px;
+    text-align: center;
+}
+
+main{
+    display:flex;
+    justify-content: center;
+    justify-items: space-between;
+    margin: 10px;
+    height: 1000px;
+}
+
+.content{
+    width: 40%;
+    margin: 0 auto;
+    background: transparent;
+}
+
+.content p{
+    padding: 15px;
+    border: solid 5px ;
+    border-radius: 50px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.content button{
+    justify-self: flex-start;
+    padding: 15px;
+    width: 100%;
+    margin: 5% 0;
+    font-size: 15px;
+}
+
+/*styling for questions */
+.content ul{
+    list-style: none;
+}
+
+.choice{
+    background: transparent;
+}
+
+/*vertical column styling*/
+.frame{
+    text-align: center;
+    flex-basis: 25%;
+    height: 100%;
+    border: solid 10px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(119,201,212,1) 35%, rgba(87,188,144,1) 100%);;
+}
+
+
+/*timer styling*/
+.timer{
+    margin: 50% 5%;
+    border: solid
+}
+
+.timer h3{
+    background: none;
+}
+
+.timer h4{
+    background: none;
+}
+
