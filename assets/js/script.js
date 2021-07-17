@@ -17,7 +17,8 @@ var starterEl = document.querySelector("#starter");
 var contentEl = document.querySelector("#content")
 
 //test
-var ulEl = ""
+var ulEl = "";
+console.log(ulEl);
 var questionEl = document.querySelector("#question");
 var choice1btnEl = document.querySelector("#choice1btn");
 var choice2btnEl = document.querySelector("#choice2btn");
@@ -42,10 +43,12 @@ var countdown = function(){
             timerEl2.textContent = time;
             //console.log(time);
         }
-        else if(questionNumber = questionList.length-1){
+        //BROKEN should stop timer at current time if last question is answered
+        else if(questionNumber >= questionList.length-1){
             console.log("game over")
+            finalTime = time;
             clearInterval(timeLeft);
-            timerEl1.textContent = time;
+            timerEl1.textContent = finalTime;
             timerEl2.textContent = time;
         }
         //displays 0
@@ -123,15 +126,15 @@ var createQuestion = function(){
     choice4btnEl = document.querySelector("#choice4btn");
     questionEl = document.querySelector("#question")
 
-    console.log(choice1btnEl)
+    // console.log(choice1btnEl)
 
     choice1btnEl.addEventListener("click", checkAnswer);
     choice2btnEl.addEventListener("click", checkAnswer);
     choice3btnEl.addEventListener("click", checkAnswer);
     choice4btnEl.addEventListener("click", checkAnswer);
 
-    console.log(questionEl);
-
+    // console.log(questionEl);
+    console.log(ulEl);
     //writes next question
 var nextQuestion = function(){
     if (questionNumber > questionList.length - 1){
@@ -195,8 +198,51 @@ var showScore = function(){
     console.log(finalTime);
 
     //remove html for quiz
+    ulEl.remove();
+
+    //remove timer html
+    var timer1El = document.getElementById("timerFrame1");
+    var timer2El = document.getElementById("timerFrame2");
+    timer1El.remove();
+    timer2El.remove();
 
     //add html for score
+
+        //create div container
+        finalScoreEl = document.createElement("div");
+
+        //create title
+        finalScoreTitleEl = document.createElement("h2");
+        finalScoreTitleEl.id = "finalScoreTitle";
+        finalScoreTitleEl.innerHTML = "Final Score";
+
+        //create final score
+        finalScoreTextEl = document.createElement("p");
+        finalScoreTextEl.id = "finalScoreText";
+        finalScoreTextEl.innerHTML = " Your final score is: " + finalTime;
+
+        //create form for highScore
+        highScoreFormEl = document.createElement("form")
+
+        //create name prompt
+        highScoreInputEl = document.createElement("input");
+        highScoreInputEl.type = "text";
+        highScoreInputEl.placeholder = "Enter your name here."
+
+        //create submit button
+        highScoreBtnEl = document.createElement("button")
+        highScoreBtnEl.id = "highScoreSubmit"
+        highScoreBtnEl.innerHTML = "Submit"
+
+
+        //adds html to content
+        contentEl.appendChild(finalScoreEl);
+        finalScoreEl.appendChild(finalScoreTitleEl);
+        finalScoreEl.appendChild(finalScoreTextEl);
+        finalScoreEl.appendChild(highScoreFormEl);
+        highScoreFormEl.appendChild(highScoreInputEl);
+        highScoreFormEl.appendChild(highScoreBtnEl);
+
 }
 
 //writes next question
