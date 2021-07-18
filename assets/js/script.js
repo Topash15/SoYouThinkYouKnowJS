@@ -1,10 +1,10 @@
 //array for questions
 var questionList = [
-    {q: "What's my favorite food?", c1: "Apple Sauce", c2: "Tacos", c3: "Pizza", c4: "Chicken Nuggets", a: "Pizza"},
-    {q: "Question 2", c1: "Choice 1", c2: "choice 2", c3: "choice 3", c4: "choice 4", a: "Choice 1"},
-    {q: "Question 3", c1: "Choice 1", c2: "choice 2", c3: "choice 3", c4: "choice 4", a: "answer"},
-    {q: "Question 4", c1: "Choice 1", c2: "choice 2", c3: "choice 3", c4: "choice 4", a: "answer"},
-    {q: "Question 5", c1: "ABC", c2: "DEF", c3: "GHI", c4: "JKL", a: "GHI"},
+    {q: "Which symbol is used to signify the end of a code segment?", c1: ";", c2: ">", c3: "}", c4: ".", a: ";"},
+    {q: "Which will create a for loop?", c1: "loop(i = 0, i < 5, i++){...};", c2: "while (a === true){...};", c3: "for(i = 0; i < 5; i++){...}", c4: "for[i=0; i > 5; i++](...)", a: "for(i = 0; i < 5; i++){...}"},
+    {q: "Which is not a correct way to declare a variable?", c1: "let variable = a;", c2: "const variable = a;", c3: "make variable = a;", c4: "var variable = a;", a: "make variable = a;"},
+    {q: "What would you use to create an html element?", c1: ".addElement();", c2: ".makeElement();", c3: "(create.element){...}", c4: ".createElement();", a: ".createElement();"},
+    {q: "Consider the following: var breed = cat.breed(); In this case, what would you call cat?", c1: "an object", c2: "a function", c3: "a property", c4: "a title", a: "an object"},
 ];
 
 //array for high high scores
