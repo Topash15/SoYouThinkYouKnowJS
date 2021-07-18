@@ -7,7 +7,8 @@ var questionList = [
     {q: "Question 5", c1: "ABC", c2: "DEF", c3: "GHI", c4: "JKL", a: "GHI"},
 ];
 
-//console.log(questionList.length)
+//array for high high scores
+var highScoreList = [];
 
 //DOC element variables
 var startBtn = document.querySelector("#startBtn");
@@ -31,6 +32,12 @@ var questionNumber = 0;
 //timer
 var time = 60;
 
+//player choice variable
+var playerChoice = "";
+
+//final score time
+var finalTime = "";
+
 //timer function
 var countdown = function(){
    
@@ -43,19 +50,12 @@ var countdown = function(){
             timerEl2.textContent = time;
             //console.log(time);
         }
-        //BROKEN should stop timer at current time if last question is answered
-        else if(questionNumber >= questionList.length-1){
-            console.log("game over")
-            finalTime = time;
-            clearInterval(timeLeft);
-            timerEl1.textContent = finalTime;
-            timerEl2.textContent = time;
-        }
         //displays 0
         else {
             timerEl1.textContent = "0";
             timerEl2.textContent = "0";
             clearInterval(timeLeft);
+            showScore();
         }
 
     }, 1000);
@@ -133,6 +133,8 @@ var createQuestion = function(){
     choice3btnEl.addEventListener("click", checkAnswer);
     choice4btnEl.addEventListener("click", checkAnswer);
 
+    playerChoice = this.innerHTML
+
     // console.log(questionEl);
     console.log(ulEl);
     //writes next question
@@ -149,8 +151,6 @@ var nextQuestion = function(){
     }
 }
 }
-
-// createQuestion();
 
 //starts quiz
 var startQuiz = function(){
@@ -170,10 +170,9 @@ if(startBtn){
 startBtn.addEventListener("click", startQuiz);
 };
 
-// countdown();
-
 //checks if answer is correct
 var checkAnswer = function(playerChoice){
+    playerChoice = this.innerHTML;
     //console.log(playerChoice);
     //console.log(questionList[questionNumber].a)
     if (playerChoice === questionList[questionNumber].a){
@@ -192,9 +191,77 @@ var checkAnswer = function(playerChoice){
     nextQuestion();
 }
 
+//submit high score
+var highScore = function(event){
+    event.preventDefault();
+
+    //pulls array from local storage and converts to array
+    highScoreList = localStorage.getItem("high score list");
+    highScoreList = JSON.parse(highScoreList);
+    console.log(highScoreList);
+
+    //sorts high score array by score if a score is listed
+    if (highScoreList){
+    highScoreList.sort(function(a,b){return (b.finalTime - a.finalTime)})
+    } else {
+        highScoreList = [];
+    };
+
+    var name = document.querySelector("#highScoreName").value;
+    highScoreList.push({name , finalTime});
+
+    //sorts
+    highScoreList.sort(function(a,b){return (b.finalTime - a.finalTime)})
+    var highScoreListString = JSON.stringify(highScoreList);
+    console.log(highScoreListString);
+
+    localStorage.setItem('high score list' ,highScoreListString);
+
+    let finalScoreEl = document.getElementById('scoreDiv');
+    console.log(finalScoreEl);
+
+    //removes submit form
+    finalScoreEl.remove();
+
+    //creates html for high score list
+
+        //create div container
+        var highScoreEl = document.createElement("div");
+        highScoreEl.id = "highScoreListDiv";
+
+        //create title
+        var highScoreTitleEl = document.createElement("h2");
+        highScoreTitleEl.id = "highScoreListTitle";
+        highScoreTitleEl.innerHTML = "High Scores";
+
+        //create ordered list for high Scores
+        var highScoreOlEl = document.createElement('ol');
+        highScoreOlEl.id = 'HSOrderedList';
+
+        //add elements to html
+       contentEl.appendChild(highScoreEl);
+       highScoreEl.appendChild(highScoreTitleEl);
+       highScoreEl.appendChild(highScoreOlEl);
+
+    for (var i = 0; i < highScoreList.length; i++) {
+        //create ol
+        var highScoreLiEl = document.createElement("li");
+        highScoreLiEl.id = "highScore" + i;
+        highScoreLiEl.innerHTML = "Name: "+ highScoreList[i].name + ":" + highScoreList[i].finalTime;
+
+        highScoreOlEl.appendChild(highScoreLiEl);
+    }
+
+    // console.log("Hello");
+    // var array = [{s: 15, n: "AWT"}, {s:50, n: "LBO"}, {s: 25, n: "LTT"}, {s: 15, n:"EAT"}];
+    // console.log(array);
+    // array.sort(function(a,b){return (b.s - a.s)});
+    // console.log(array);
+};
+
 //loads end score
-var showScore = function(){
-    var finalTime = time;
+var showScore = function(event){
+    finalTime = time;
     console.log(finalTime);
 
     //remove html for quiz
@@ -210,6 +277,7 @@ var showScore = function(){
 
         //create div container
         finalScoreEl = document.createElement("div");
+        finalScoreEl.id = "scoreDiv";
 
         //create title
         finalScoreTitleEl = document.createElement("h2");
@@ -227,13 +295,13 @@ var showScore = function(){
         //create name prompt
         highScoreInputEl = document.createElement("input");
         highScoreInputEl.type = "text";
+        highScoreInputEl.id = "highScoreName";
         highScoreInputEl.placeholder = "Enter your name here."
 
         //create submit button
         highScoreBtnEl = document.createElement("button")
         highScoreBtnEl.id = "highScoreSubmit"
         highScoreBtnEl.innerHTML = "Submit"
-
 
         //adds html to content
         contentEl.appendChild(finalScoreEl);
@@ -242,6 +310,8 @@ var showScore = function(){
         finalScoreEl.appendChild(highScoreFormEl);
         highScoreFormEl.appendChild(highScoreInputEl);
         highScoreFormEl.appendChild(highScoreBtnEl);
+
+    highScoreBtnEl.addEventListener("click", highScore);
 
 }
 
@@ -260,18 +330,5 @@ var nextQuestion = function(){
     }
 }
 
-// var test = function(){
-//     var playerChoice = this.innerHTML;
-//     checkAnswer(playerChoice);
-//     nextQuestion();
-//     console.log(questionList[questionNumber]);
-// };
-
 console.log(choice1btnEl);
 console.log(questionEl);
-
-//test quiz choice event listener
-// choice1btnEl.addEventListener("click", test);
-// choice2btnEl.addEventListener("click", checkAnswer);
-// choice3btnEl.addEventListener("click", checkAnswer);
-// choice4btnEl.addEventListener("click", checkAnswer);
